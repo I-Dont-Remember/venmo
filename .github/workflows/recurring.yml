@@ -1,0 +1,36 @@
+
+name: Run Recurring Venmo
+
+on:
+  schedule:
+    # 5/6pm EDT on the 10th of the month.
+    - cron: "0 10 10 * *"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install
+      - name: Run script 
+        # https://pipenv.pypa.io/en/latest/advanced/#automatic-loading-of-env; this is somewhat silly but I wanted to finish quick
+        run: |
+          echo VENMO_ACCESS_TOKEN=$VENMO_ACCESS_TOKEN >> .env
+          echo GF_VENMO_USER_ID=$GF_VENMO_USER_ID >> .env
+          echo C_USER_ID=$C_USER_ID >> .env
+          echo IFTTT_WEBHOOK=$IFTTT_WEBHOOK >> .env
+          pipenv run python main.py
+        env:
+          VENMO_ACCESS_TOKEN: ${{ secrets.VENMO_ACCESS_TOKEN }}
+          GF_VENMO_USER_ID: ${{ secrets.GF_VENMO_USER_ID }}
+          C_USER_ID: ${{ secrets.C_USER_ID }}
+          IFTTT_WEBHOOK: ${{ secrets.IFTTT_WEBHOOK }}
