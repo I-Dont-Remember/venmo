@@ -18,7 +18,7 @@ def main():
     venmo_client = Client(access_token=access_token)
 
     request_for_rent(venmo_client)
-    request_for_internet(venmo_client)
+#     request_for_internet(venmo_client)
 
 
 
@@ -43,30 +43,30 @@ def request_for_rent(venmo_client):
     notify(msg)
 
 
-def request_for_internet(venmo_client):
-    amount = 40.0
+# def request_for_internet(venmo_client):
+#     amount = 40.0
 
-    now = datetime.now()
-    month_short_notation = now.strftime("%b")
-    if month_short_notation not in ['Jun', 'Jul']:
-        print('Quitting because no internet after end of July')
-        notify('If you havent already, stop requesting internet from C.')
-        return
+#     now = datetime.now()
+#     month_short_notation = now.strftime("%b")
+#     if month_short_notation not in ['Jun', 'Jul']:
+#         print('Quitting because no internet after end of July')
+#         notify('If you havent already, stop requesting internet from C.')
+#         return
 
-    note = f'{month_short_notation} Interwebs'
+#     note = f'{month_short_notation} Interwebs'
 
-    c_user_id = os.environ.get(C_ID_KEY)
-    if c_user_id is None:
-        raise ValueError('[!] AHHHH NO C User Id to use...')
+#     c_user_id = os.environ.get(C_ID_KEY)
+#     if c_user_id is None:
+#         raise ValueError('[!] AHHHH NO C User Id to use...')
 
-    try:
-        venmo_client.payment.request_money(amount, note, target_user_id=c_user_id, privacy_setting=PaymentPrivacy.PRIVATE)
-        print('Successfully requested for internet $$')
-        msg = f'Requested ${amount} Internet from C.'
-    except Exception as e:
-        print(e)
-        msg = '[!] Failed to request $$ for internet from C'
-    notify(msg)
+#     try:
+#         venmo_client.payment.request_money(amount, note, target_user_id=c_user_id, privacy_setting=PaymentPrivacy.PRIVATE)
+#         print('Successfully requested for internet $$')
+#         msg = f'Requested ${amount} Internet from C.'
+#     except Exception as e:
+#         print(e)
+#         msg = '[!] Failed to request $$ for internet from C'
+#     notify(msg)
 
 
 def notify(msg):
