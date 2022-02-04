@@ -1,0 +1,18 @@
+Notes on the process
+############################
+* Set up a git repo & python env
+* had to understand how to install Python lib into my local environment to get access_token
+* Ran a quick script to get the token
+* Since using Github actions, added it to my newly created git repo Secrets tab
+* What is device id used for?
+* How do we get the user ids to request? how to make this user friendly?
+    * added in readme, there is utility wrapper function that calls the search and parses the user out by username.
+    * Since I only have one for now, i'm saving as environment variable like the access_token
+* That's all it takes, it's a very simple script code wise. The set up is complicated for regular humans, though.
+* This only works on cron. Could you set scheduled ones as well?
+* Zapier can't use webhooks unless on premium
+* Can I use IFTTT to send a text or email when I get a webhook? https://help.ifttt.com/hc/en-us/articles/115010230347-Webhooks-service-FAQ
+    * Configure a task that is generic webhook->send SMS to myself and pass data in the values so I can use it for whatever
+* So i now have a notifier for my 2 recurring venmo transactions, very neat
+
+
